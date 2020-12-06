@@ -14,18 +14,26 @@ window.addEventListener('load', () => {
 //  タイマーイベント発生時の処理
 function WmTimer() {
     gFrame++                                            //  内部カウンタを加算
+    WmSize();
+    WmPaint();
+}
 
+function WmSize() {
     const canvas = document.querySelector('canvas');    //  キャンバス要素を取得
-    const ctx = canvas.getContext('2d');                //  2D描画コンテキストを取得
     canvas.width = window.innerWidth;                   //  キャンバスの幅をブラウザの幅へ変更
     canvas.height = window.innerHeight;                 //  キャンバスの高さをブラウザの高さへ変更
+}
 
+function WmPaint() {
+    const canvas = document.querySelector('canvas');
+    const ctx = canvas.getContext('2d');
+    
     for (let y = 0; y < 32; y++) {
         for (let x = 0; x < 64; x++) {
             ctx.drawImage(gImgMap, x * 32, y * 32);
         }
     }
-    
+
     ctx.font = FONT;                                    //  文字フォントを設定
     ctx.fillText('Hello World ' + gFrame, 0, 64);
 }
