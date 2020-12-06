@@ -17,9 +17,11 @@ function WmTimer() {
 
     const canvas = document.querySelector('canvas');    //  キャンバス要素を取得
     const ctx = canvas.getContext('2d');                //  2D描画コンテキストを取得
+    canvas.width = window.innerWidth;                   //  キャンバスの幅をブラウザの幅へ変更
+    canvas.height = window.innerHeight;                 //  キャンバスの高さをブラウザの高さへ変更
 
-    for (let y = 0; y < 16; y++) {
-        for (let x = 0; x < 16; x++) {
+    for (let y = 0; y < 32; y++) {
+        for (let x = 0; x < 64; x++) {
             ctx.drawImage(gImgMap, x * 32, y * 32);
         }
     }
