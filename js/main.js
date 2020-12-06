@@ -3,7 +3,7 @@
 const FONT = '48px monospace';  //  使用フォント
 const HEIGHT = 120;             //  仮想画面サイズ。高さ
 const WIDTH = 128;              //  仮想画面サイズ。幅
-const MAP_HEIGHT = 32;           //  マップ高さ
+const MAP_HEIGHT = 32;          //  マップ高さ
 const MAP_WIDTH = 32;           //  マップ幅
 const SMOOTH = 0;               //  補間処理
 const TILECOLUMN = 4;           //  タイル桁数
@@ -14,7 +14,11 @@ let gFrame = 0;                 //  内部カウンタ
 let gHeight;                    //  実画面の高さ
 let gWidth;                     //  実画面の幅
 let gImgMap;                    //  画像。マップ
+let gImgPlayer;                 //  画像。プレイヤー
 let gScreen;                    //  仮想画面
+
+const gFileMap    = 'img/map.png';
+const gFilePlayer = 'img/player.png';
 
 //	マップ
 const gMap = [
@@ -54,7 +58,7 @@ const gMap = [
 
 //  ブラウザ起動イベント
 window.addEventListener('load', () => {
-    gImgMap = new Image(); gImgMap.src = 'img/map.png'; //  マップ画像読み込み
+    LoadImage();
 
     gScreen = document.createElement('canvas');         //  仮想画面を作成
     gScreen.width = WIDTH;                              //  仮想画面の幅を設定
@@ -109,6 +113,11 @@ function DrawTile(ctx, x, y, idx) {
     const ix = (idx % TILECOLUMN) * TILESIZE;
     const iy = Math.floor(idx / TILECOLUMN) * TILESIZE;
     ctx.drawImage(gImgMap, ix, iy, TILESIZE, TILESIZE, x, y, TILESIZE, TILESIZE);
+}
+
+function LoadImage() {
+    gImgMap = new Image();    gImgMap.src    = gFileMap;    //  マップ画像読み込み    
+    gImgPlayer = new Image(); gImgPlayer.src = gFilePlayer; //  プレイヤー画像読み込み    
 }
 
 function WmPaint() { 
