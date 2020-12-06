@@ -4,6 +4,9 @@ const FONT = '48px monospace';  //  使用フォント
 const HEIGHT = 120;             //  仮想画面サイズ。高さ
 const WIDTH = 128;              //  仮想画面サイズ。幅
 const SMOOTH = 0;               //  補間処理
+const TILECOLUMN = 4;           //  タイル桁数
+const TILEROW = 4;              //  タイル行数
+const TILESIZE = 8;             //  タイルサイズ（ドット）
 
 let gScreen;                    //  仮想画面
 let gFrame = 0;                 //  内部カウンタ
@@ -56,12 +59,18 @@ function DrawMain() {
 
     for (let y = 0; y < 32; y++) {
         for (let x = 0; x < 64; x++) {
-            ctx.drawImage(gImgMap, x * 32, y * 32);
+            DrawTile(ctx, x * TILESIZE, y * TILESIZE, 12);
         }
     }
 
     ctx.font = FONT;        //  文字フォントを設定
     ctx.fillText('Hello World ' + gFrame, gFrame / 10, 64);
+}
+
+function DrawTile(ctx, x, y, idx) {
+    const ix = (idx % TILECOLUMN) * TILESIZE;
+    const iy = Math.floor(idx / TILECOLUMN) * TILESIZE;
+    ctx.drawImage(gImgMap, ix, iy, TILESIZE, TILESIZE, x, y, TILESIZE, TILESIZE);
 }
 
 function WmPaint() { 
