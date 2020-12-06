@@ -3,6 +3,7 @@
 const FONT = '48px monospace';  //  使用フォント
 const HEIGHT = 120;             //  仮想画面サイズ。高さ
 const WIDTH = 128;              //  仮想画面サイズ。幅
+const SMOOTH = 0;               //  補間処理
 
 let gScreen;                    //  仮想画面
 let gFrame = 0;                 //  内部カウンタ
@@ -36,6 +37,9 @@ function WmSize() {
     const canvas = document.querySelector('canvas');    //  キャンバス要素を取得
     canvas.width = window.innerWidth;                   //  キャンバスの幅をブラウザの幅へ変更
     canvas.height = window.innerHeight;                 //  キャンバスの高さをブラウザの高さへ変更
+
+    const ctx = canvas.getContext('2d');
+    ctx.imageSmoothingEnabled = ctx.msImageSmoothingEnabled = SMOOTH;    //  補間処理
 
     //  実画面サイズを計測。ドットのアスペクト比を維持したままでの最大サイズを計測する。
     gWidth = canvas.width;
