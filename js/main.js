@@ -1,5 +1,7 @@
 'use strict';
 
+const CHRHEIGHT = 9;            //  キャラの高さ
+const CHRWIDTH  = 8;            //  キャラの幅
 const FONT = '48px monospace';  //  使用フォント
 const HEIGHT = 120;             //  仮想画面サイズ。高さ
 const WIDTH = 128;              //  仮想画面サイズ。幅
@@ -105,8 +107,9 @@ function DrawMain() {
         }
     }
 
-    ctx.font = FONT;        //  文字フォントを設定
-    ctx.fillText('Hello World ' + gFrame, gFrame / 10, 64);
+    ctx.drawImage(gImgPlayer,
+                  CHRWIDTH, 0, CHRWIDTH, CHRHEIGHT,
+                  WIDTH / 2, HEIGHT / 2, CHRWIDTH, CHRHEIGHT);
 }
 
 function DrawTile(ctx, x, y, idx) {
