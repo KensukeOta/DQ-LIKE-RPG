@@ -81,6 +81,24 @@ function WmTimer() {
     WmPaint();
 }
 
+//  キー入力(DOWN)イベント
+window.addEventListener('keydown', (e) => {
+    switch (e.code) {
+        case 'ArrowUp':
+            gPlayerY--;
+            break;
+        case 'ArrowRight':
+            gPlayerX++;
+            break;
+        case 'ArrowDown':
+            gPlayerY++
+            break;
+        case 'ArrowLeft':
+            gPlayerX--;
+            break;
+    }
+});
+
 //  ブラウザサイズ変更イベント
 function WmSize() {
     const canvas = document.querySelector('canvas');    //  キャンバス要素を取得
