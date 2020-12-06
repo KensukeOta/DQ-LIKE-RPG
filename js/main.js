@@ -17,6 +17,8 @@ let gHeight;                    //  実画面の高さ
 let gWidth;                     //  実画面の幅
 let gImgMap;                    //  画像。マップ
 let gImgPlayer;                 //  画像。プレイヤー
+let gPlayerX = 0;               //  プレイヤー座標X
+let gPlayerY = 0;               //  プレイヤー座標Y
 let gScreen;                    //  仮想画面
 
 const gFileMap    = 'img/map.png';
@@ -101,9 +103,11 @@ function WmSize() {
 function DrawMain() {
     const ctx = gScreen.getContext('2d');   //  仮想画面の2D描画コンテキストを取得
 
-    for (let y = 0; y < 32; y++) {
-        for (let x = 0; x < 64; x++) {
-            DrawTile(ctx, x * TILESIZE, y * TILESIZE, gMap[y * MAP_WIDTH + x]);
+    for (let y = 0; y < 20; y++) {
+        for (let x = 0; x < 20; x++) {
+            let px = gPlayerX + x;
+            let py = gPlayerY + y;
+            DrawTile(ctx, x * TILESIZE, y * TILESIZE, gMap[py * MAP_WIDTH + px]);
         }
     }
 
