@@ -3,18 +3,22 @@
 const FONT = '48px monospace';  //  使用フォント
 
 let gFrame = 0;                 //  内部カウンタ
+WmSize();
 let gImgMap;                    //  画像。マップ
 
 //  ブラウザ起動イベント
 window.addEventListener('load', () => {
     gImgMap = new Image(); gImgMap.src = 'img/map.png'; //  マップ画像読み込み
+    WmSize()                                            //  画面サイズ初期化
+    window.addEventListener('resize', () => {           //  ブラウザサイズ変更時、WmSize()が呼ばれるよう指示
+        WmSize();
+    });
     setInterval(function () { WmTimer() }, 33);         //  33ms間隔で、WmTimer()を呼び出すよう指示(約30.3fps)
 });
 
 //  タイマーイベント発生時の処理
 function WmTimer() {
     gFrame++                                            //  内部カウンタを加算
-    WmSize();
     WmPaint();
 }
 
