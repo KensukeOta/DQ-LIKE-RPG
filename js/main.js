@@ -4,8 +4,10 @@ const FONT = '48px monospace';  //  使用フォント
 const HEIGHT = 120;             //  仮想画面サイズ。高さ
 const WIDTH = 128;              //  仮想画面サイズ。幅
 
-let gScreen;                    // 仮想画面
+let gScreen;                    //  仮想画面
 let gFrame = 0;                 //  内部カウンタ
+let gHeight;                    //  実画面の高さ
+let gWidth;                     //  実画面の幅
 let gImgMap;                    //  画像。マップ
 
 //  ブラウザ起動イベント
@@ -29,10 +31,20 @@ function WmTimer() {
     WmPaint();
 }
 
+//  ブラウザサイズ変更イベント
 function WmSize() {
     const canvas = document.querySelector('canvas');    //  キャンバス要素を取得
     canvas.width = window.innerWidth;                   //  キャンバスの幅をブラウザの幅へ変更
     canvas.height = window.innerHeight;                 //  キャンバスの高さをブラウザの高さへ変更
+
+    //  実画面サイズを計測。ドットのアスペクト比を維持したままでの最大サイズを計測する。
+    gWidth = canvas.width;
+    gHeight = canvas.height;
+    if (gWidth / WIDTH < gHeight / HEIGHT) {
+        gHeight = gWidth * HEIGHT / WIDTH;
+    } else {
+        gWidth = gHeight * WIDTH / HEIGHT;
+    }
 }
 
 function DrawMain() {
@@ -44,8 +56,8 @@ function DrawMain() {
         }
     }
 
-    ctx.font = FONT;                                    //  文字フォントを設定
-    ctx.fillText('Hello World ' + gFrame, 0, 64);
+    ctx.font = FONT;        //  文字フォントを設定
+    ctx.fillText('Hello World ' + gFrame, gFrame / 10, 64);
 }
 
 function WmPaint() { 
@@ -53,5 +65,5 @@ function WmPaint() {
 
     const canvas = document.querySelector('canvas');
     const ctx = canvas.getContext('2d');
-    ctx.drawImage(gScreen, 0, 0, gScreen.width, gScreen.height, 0, 0, canvas.width, canvas.height); //  仮想画面のイメージを実画面へ転送
+    ctx.drawImage(gScreen, 0, 0, gScreen.width, gScreen.height, 0, 0, gWidth, gHeight); //  仮想画面のイメージを実画面へ転送
 }
