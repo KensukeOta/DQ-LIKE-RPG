@@ -125,13 +125,17 @@ function DrawMain() {
         for (let x = 0; x < 20; x++) {
             let px = gPlayerX + x;
             let py = gPlayerY + y;
-            DrawTile(ctx, x * TILESIZE, y * TILESIZE, gMap[py * MAP_WIDTH + px]);
+            DrawTile(ctx, x * TILESIZE - TILESIZE / 2, y * TILESIZE, gMap[py * MAP_WIDTH + px]);
         }
     }
 
+    ctx.fillStyle = '#ff0000';
+    ctx.fillRect(0, HEIGHT / 2 - 1, WIDTH, 2);
+    ctx.fillRect(WIDTH / 2 - 1, 0, 2, HEIGHT);
+
     ctx.drawImage(gImgPlayer,
                   CHRWIDTH, 0, CHRWIDTH, CHRHEIGHT,
-                  WIDTH / 2, HEIGHT / 2, CHRWIDTH, CHRHEIGHT);
+                  WIDTH / 2 - CHRWIDTH / 2, HEIGHT / 2 - CHRHEIGHT + TILESIZE / 2, CHRWIDTH, CHRHEIGHT);
 }
 
 function DrawTile(ctx, x, y, idx) {
