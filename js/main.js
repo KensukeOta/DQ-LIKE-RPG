@@ -119,7 +119,7 @@ function DrawMain() {
 
     ctx.font = FONT;									//	文字フォントを設定
     ctx.fillStyle = FONTSTYLE;						//	文字色
-    ctx.fillText("x=" + gPlayerX + " y=" + gPlayerY, 25, 115);
+    ctx.fillText("x=" + gPlayerX + " y=" + gPlayerY + ' m=' + gMap[gPlayerY * MAP_WIDTH + gPlayerX], 25, 115);
 }
 
 
