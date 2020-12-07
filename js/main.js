@@ -2,7 +2,7 @@
 
 const CHRHEIGHT = 9;					    //	キャラの高さ
 const CHRWIDTH = 8;					        //	キャラの幅
-const FONT = "12px monospace";		        //	使用フォント
+const FONT = "10px monospace";		        //	使用フォント
 const FONTSTYLE = "#ffffff";			    //	文字色
 const HEIGHT = 120;					        //	仮想画面サイズ。高さ
 const WIDTH = 128;					        //	仮想画面サイズ。幅
@@ -101,10 +101,12 @@ function DrawMain() {
 
     for (let dy = -7; dy <= 7; dy++) {
         let y = dy + 7;
-        let py = (my + dy + MAP_HEIGHT) % MAP_HEIGHT;
+        let ty = my + dy;                               //  タイル座標Y
+        let py = (ty + MAP_HEIGHT) % MAP_HEIGHT;        //  ループ後タイル座標Y
         for (let dx = -8; dx <= 8; dx++) {
             let x = dx + 8;
-            let px = (mx + dx + MAP_WIDTH) % MAP_WIDTH;
+            let tx = mx + dx;                           //  タイル座標X
+            let px = (tx + MAP_WIDTH) % MAP_WIDTH; //  ループ後タイル座標X
             DrawTile(ctx,
                      x * TILESIZE - TILESIZE / 2, y * TILESIZE,
                      gMap[py * MAP_WIDTH + px]);
