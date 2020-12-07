@@ -86,6 +86,7 @@ window.addEventListener('load', () => {
 //	タイマーイベント発生時の処理
 function WmTimer() {
     gFrame++;						//	内部カウンタを加算
+    TickField();                    //  フィールド進行処理
     WmPaint();
 }
 
@@ -145,7 +146,19 @@ function LoadImage() {
     gImgPlayer = new Image(); gImgPlayer.src = gFilePlayer;	//	プレイヤー画像読み込み
 }
 
+//  フィールド進行処理
+function TickField() {
+    if (gKey[37]) gPlayerX--;   //  左
+    if (gKey[38]) gPlayerY--;   //  上
+    if (gKey[39]) gPlayerX++;   //  右
+    if (gKey[40]) gPlayerY++;   //  下
 
+    //  マップループ処理
+    gPlayerX += (MAP_WIDTH * TILESIZE);
+    gPlayerX %= (MAP_WIDTH * TILESIZE);
+    gPlayerY += (MAP_HEIGHT * TILESIZE);
+    gPlayerY %= (MAP_HEIGHT * TILESIZE);
+}
 
 
 //	ブラウザサイズ変更イベント
@@ -176,17 +189,6 @@ window.addEventListener('keydown', (e) => {
     let c = e.keyCode;     //  キーコード取得
     
     gKey[c] = 1;
-    
-    if (gKey[37]) gPlayerX--;   //  左
-    if (gKey[38]) gPlayerY--;   //  上
-    if (gKey[39]) gPlayerX++;   //  右
-    if (gKey[40]) gPlayerY++;   //  下
-
-    //  マップループ処理
-    gPlayerX += (MAP_WIDTH * TILESIZE);
-    gPlayerX %= (MAP_WIDTH * TILESIZE);
-    gPlayerY += (MAP_HEIGHT * TILESIZE);
-    gPlayerY %= (MAP_HEIGHT * TILESIZE);
 });
 
 //  キー入力(UP)イベント
