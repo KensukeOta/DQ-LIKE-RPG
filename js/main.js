@@ -24,6 +24,7 @@ let gAngle = 0;                             //  プレイヤーの向き
 let gFrame = 0;					            //	内部カウンタ
 let gHeight;					            //	実画面の高さ
 let gWidth;						            //	実画面の幅
+let gMessage = null;                        //  表示メッセージ
 let gMoveX = 0;                             //  移動量X
 let gMoveY = 0;                             //  移動量Y
 let gImgMap;					            //	画像。マップ
@@ -125,14 +126,26 @@ function DrawMain() {
         (gFrame >> 4 & 1) * CHRWIDTH, gAngle * CHRHEIGHT, CHRWIDTH, CHRHEIGHT,
         WIDTH / 2 - CHRWIDTH / 2, HEIGHT / 2 - CHRHEIGHT + TILESIZE / 2, CHRWIDTH, CHRHEIGHT);
 
+    DrawMessage(ctx);                                   //  メッセージ描画 
+        
     ctx.fillStyle = WNDSTYLE;							//	ウィンドウの色
-    ctx.fillRect(20, 103, 105, 15);
+    ctx.fillRect(20, 3, 105, 15);                       //  矩形描画
 
     ctx.font = FONT;									//	文字フォントを設定
-    ctx.fillStyle = FONTSTYLE;						//	文字色
-    ctx.fillText("x=" + gPlayerX + " y=" + gPlayerY + ' m=' + gMap[my * MAP_WIDTH + mx], 25, 115);
+    ctx.fillStyle = FONTSTYLE;						    //	文字色
+    ctx.fillText("x=" + gPlayerX + " y=" + gPlayerY + ' m=' + gMap[my * MAP_WIDTH + mx], 25, 15);
 }
 
+function DrawMessage(ctx) {
+    ctx.fillStyle = WNDSTYLE;							//	ウィンドウの色
+    ctx.fillRect(4, 84, 120, 30);                           //  矩形描画
+
+    ctx.font = FONT;									//	文字フォントを設定
+    ctx.fillStyle = FONTSTYLE;						    //	文字色
+
+
+    ctx.fillText(gMessage, 6, 96);
+}
 
 function DrawTile(ctx, x, y, idx) {
     const ix = (idx % TILECOLUMN) * TILESIZE;
@@ -167,6 +180,14 @@ function TickField() {
         gMoveY = 0;                     //  移動禁止Y
     }
 
+    if (m === 8 || m === 9) {
+        gMessage = '魔王を倒して！';
+    }
+
+    if (m === 10 || m === 11) {
+        gMessage = '西の果てにも村があります';
+    }
+    
     gPlayerX += Math.sign(gMoveX);      //  プレイヤー座標移動X
     gPlayerY += Math.sign(gMoveY);      //  プレイヤー座標移動Y
     gMoveX -= Math.sign(gMoveX);        //  移動量消費X
