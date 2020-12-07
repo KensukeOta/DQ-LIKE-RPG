@@ -23,8 +23,8 @@ let gHeight;					            //	実画面の高さ
 let gWidth;						            //	実画面の幅
 let gImgMap;					            //	画像。マップ
 let gImgPlayer;					            //	画像。プレイヤー
-let gPlayerX = START_X * TILESIZE;		    //	プレイヤー座標X
-let gPlayerY = START_Y * TILESIZE;		    //	プレイヤー座標Y
+let gPlayerX = START_X * TILESIZE + TILESIZE / 2;		    //	プレイヤー座標X
+let gPlayerY = START_Y * TILESIZE + TILESIZE / 2;		    //	プレイヤー座標Y
 let gScreen;					            //	仮想画面
 
 
