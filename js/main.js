@@ -23,6 +23,8 @@ const gKey = new Uint8Array(0x100);         //  キー入力バッファ
 let gFrame = 0;					            //	内部カウンタ
 let gHeight;					            //	実画面の高さ
 let gWidth;						            //	実画面の幅
+let gMoveX = 0;                             //  移動量X
+let gMoveY = 0;                             //  移動量Y
 let gImgMap;					            //	画像。マップ
 let gImgPlayer;					            //	画像。プレイヤー
 let gPlayerX = START_X * TILESIZE + TILESIZE / 2;		    //	プレイヤー座標X
@@ -148,10 +150,13 @@ function LoadImage() {
 
 //  フィールド進行処理
 function TickField() {
-    if (gKey[37]) gPlayerX--;   //  左
-    if (gKey[38]) gPlayerY--;   //  上
-    if (gKey[39]) gPlayerX++;   //  右
-    if (gKey[40]) gPlayerY++;   //  下
+    if (gKey[37]) gMoveX = -1;   //  左
+    if (gKey[38]) gMoveY = -1;   //  上
+    if (gKey[39]) gMoveX = 1;   //  右
+    if (gKey[40]) gMoveY = 1;   //  下
+
+    gPlayerX += gMoveX;
+    gPlayerY += gMoveY;
 
     //  マップループ処理
     gPlayerX += (MAP_WIDTH * TILESIZE);
