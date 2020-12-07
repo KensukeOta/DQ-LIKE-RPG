@@ -6,10 +6,12 @@ const FONT = "10px monospace";		        //	使用フォント
 const FONTSTYLE = "#ffffff";			    //	文字色
 const HEIGHT = 120;					        //	仮想画面サイズ。高さ
 const WIDTH = 128;					        //	仮想画面サイズ。幅
+const INTERVAL = 33;                        //  フレーム呼び出し間隔
 const MAP_HEIGHT = 32;					    //	マップ高さ
 const MAP_WIDTH = 32;					    //	マップ幅
 const SCR_HEIGHT = 8;                       //  画面タイルサイズの半分の高さ
 const SCR_WIDTH = 8;                        //  画面タイルサイズの半分の幅
+const SCROLL = 4;                           //  スクロール速度
 const SMOOTH = 0;					        //	補間処理
 const START_X = 15;                         //  開始位置X
 const START_Y = 17;                         //  開始位置Y
@@ -83,8 +85,7 @@ window.addEventListener('load', () => {
     
     WmSize();										//	画面サイズ初期化
     window.addEventListener("resize", function () { WmSize() });	//	ブラウザサイズ変更時、WmSize()が呼ばれるよう指示
-    setInterval(function () { WmTimer() }, 33);		//	33ms間隔で、WmTimer()を呼び出すよう指示（約30.3fps）
-    
+    setInterval(function () { WmTimer() }, INTERVAL);		//	33ms間隔で、WmTimer()を呼び出すよう指示（約30.3fps）
 });
 
 //	タイマーイベント発生時の処理
@@ -187,11 +188,11 @@ function TickField() {
     if (m === 10 || m === 11) {
         gMessage = '西の果てにも村があります';
     }
-    
-    gPlayerX += Math.sign(gMoveX);      //  プレイヤー座標移動X
-    gPlayerY += Math.sign(gMoveY);      //  プレイヤー座標移動Y
-    gMoveX -= Math.sign(gMoveX);        //  移動量消費X
-    gMoveY -= Math.sign(gMoveY);        //  移動量消費Y
+
+    gPlayerX += Math.sign(gMoveX) * SCROLL;      //  プレイヤー座標移動X
+    gPlayerY += Math.sign(gMoveY) * SCROLL;      //  プレイヤー座標移動Y
+    gMoveX -= Math.sign(gMoveX) * SCROLL;        //  移動量消費X
+    gMoveY -= Math.sign(gMoveY) * SCROLL;        //  移動量消費Y
 
     //  マップループ処理
     gPlayerX += (MAP_WIDTH * TILESIZE);
