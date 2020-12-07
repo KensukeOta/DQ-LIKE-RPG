@@ -126,7 +126,7 @@ function DrawMain() {
 
     //  プレイヤー
     ctx.drawImage(gImgPlayer,
-        CHRWIDTH, gAngle * CHRHEIGHT, CHRWIDTH, CHRHEIGHT,
+        (gFrame >> 4 & 1) * CHRWIDTH, gAngle * CHRHEIGHT, CHRWIDTH, CHRHEIGHT,
         WIDTH / 2 - CHRWIDTH / 2, HEIGHT / 2 - CHRHEIGHT + TILESIZE / 2, CHRWIDTH, CHRHEIGHT);
 
     ctx.fillStyle = WNDSTYLE;							//	ウィンドウの色
