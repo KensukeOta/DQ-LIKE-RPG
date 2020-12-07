@@ -20,6 +20,7 @@ const WNDSTYLE = "rgba( 0, 0, 0, 0.75 )";	//	ウィンドウの色
 
 const gKey = new Uint8Array(0x100);         //  キー入力バッファ
 
+let gAngle = 0;                             //  プレイヤーの向き
 let gFrame = 0;					            //	内部カウンタ
 let gHeight;					            //	実画面の高さ
 let gWidth;						            //	実画面の幅
@@ -123,8 +124,9 @@ function DrawMain() {
     ctx.fillRect(0, HEIGHT / 2 - 1, WIDTH, 2);
     ctx.fillRect(WIDTH / 2 - 1, 0, 2, HEIGHT);
 
+    //  プレイヤー
     ctx.drawImage(gImgPlayer,
-        CHRWIDTH, 0, CHRWIDTH, CHRHEIGHT,
+        CHRWIDTH, gAngle * CHRHEIGHT, CHRWIDTH, CHRHEIGHT,
         WIDTH / 2 - CHRWIDTH / 2, HEIGHT / 2 - CHRHEIGHT + TILESIZE / 2, CHRWIDTH, CHRHEIGHT);
 
     ctx.fillStyle = WNDSTYLE;							//	ウィンドウの色
@@ -150,11 +152,11 @@ function LoadImage() {
 
 //  フィールド進行処理
 function TickField() {
-    if (gMoveX != 0 || gMoveY != 0) {}  //  移動中の場合
-    else if (gKey[37]) gMoveX = -TILESIZE;     //  左
-    else if (gKey[38]) gMoveY = -TILESIZE;     //  上
-    else if (gKey[39]) gMoveX = TILESIZE;      //  右
-    else if (gKey[40]) gMoveY = TILESIZE;      //  下
+    if (gMoveX != 0 || gMoveY != 0) { }  //  移動中の場合
+    else if (gKey[37]) { gAngle = 1; gMoveX = -TILESIZE; }    //  左
+    else if (gKey[38]) { gAngle = 3; gMoveY = -TILESIZE; }    //  上
+    else if (gKey[39]) { gAngle = 2; gMoveX = TILESIZE; }     //  右
+    else if (gKey[40]) { gAngle = 0; gMoveY = TILESIZE; }     //  下
 
     gPlayerX += Math.sign(gMoveX);      //  プレイヤー座標移動X
     gPlayerY += Math.sign(gMoveY);      //  プレイヤー座標移動Y
