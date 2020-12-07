@@ -233,6 +233,8 @@ window.addEventListener('keydown', (e) => {
     let c = e.keyCode;     //  キーコード取得
     
     gKey[c] = 1;
+
+    gMessage = null;
 });
 
 //  キー入力(UP)イベント
