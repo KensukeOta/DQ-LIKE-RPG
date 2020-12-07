@@ -176,6 +176,12 @@ window.addEventListener('keydown', (e) => {
             gPlayerX--;
             break;
     }
+
+    //  マップループ処理
+    gPlayerX += MAP_WIDTH;
+    gPlayerX %= MAP_WIDTH;
+    gPlayerY += MAP_HEIGHT;
+    gPlayerY %= MAP_HEIGHT;
 });
 
 
