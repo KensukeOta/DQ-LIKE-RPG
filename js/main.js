@@ -1,16 +1,18 @@
 'use strict';
 
-const CHRHEIGHT = 9;            //  キャラの高さ
-const CHRWIDTH  = 8;            //  キャラの幅
-const FONT = '48px monospace';  //  使用フォント
-const HEIGHT = 120;             //  仮想画面サイズ。高さ
-const WIDTH = 128;              //  仮想画面サイズ。幅
-const MAP_HEIGHT = 32;          //  マップ高さ
-const MAP_WIDTH = 32;           //  マップ幅
-const SMOOTH = 0;               //  補間処理
-const TILECOLUMN = 4;           //  タイル桁数
-const TILEROW = 4;              //  タイル行数
-const TILESIZE = 8;             //  タイルサイズ（ドット）
+const CHRHEIGHT = 9;                      //  キャラの高さ
+const CHRWIDTH  = 8;                      //  キャラの幅
+const FONT = '12px monospace';            //  使用フォント
+const FONTSTYLE = '#ffffff';              //  文字色
+const HEIGHT = 120;                       //  仮想画面サイズ。高さ
+const WIDTH = 128;                        //  仮想画面サイズ。幅
+const MAP_HEIGHT = 32;                    //  マップ高さ
+const MAP_WIDTH = 32;                     //  マップ幅
+const SMOOTH = 0;                         //  補間処理
+const TILECOLUMN = 4;                     //  タイル桁数
+const TILEROW = 4;                        //  タイル行数
+const TILESIZE = 8;                       //  タイルサイズ（ドット）
+const WNDSTYLE = 'rgba(0, 0, 0, 0.75)';   //  ウィンドウの色
 
 let gFrame = 0;                 //  内部カウンタ
 let gHeight;                    //  実画面の高さ
@@ -136,6 +138,13 @@ function DrawMain() {
     ctx.drawImage(gImgPlayer,
                   CHRWIDTH, 0, CHRWIDTH, CHRHEIGHT,
                   WIDTH / 2 - CHRWIDTH / 2, HEIGHT / 2 - CHRHEIGHT + TILESIZE / 2, CHRWIDTH, CHRHEIGHT);
+    
+    ctx.fillStyle = WNDSTYLE;                       //  ウィンドウの色
+    ctx.fillRect(20, 103, 105, 15);
+
+    ctx.font = FONT;                                //  文字フォントを設定
+    ctx.fillStyle = FONTSTYLE;                      //  文字色 
+    ctx.fillText('x=' + gPlayerX + ' y=' + gPlayerY, 25, 115);
 }
 
 function DrawTile(ctx, x, y, idx) {
