@@ -137,9 +137,13 @@ function DrawMain() {
     ctx.fillText("x=" + gPlayerX + " y=" + gPlayerY + ' m=' + gMap[my * MAP_WIDTH + mx], 25, 15);
 }
 
+//  メッセージ描画
 function DrawMessage(ctx) {
+    if (!gMessage) {                                    //  メッセージが存在しない場合
+        return;
+    }
     ctx.fillStyle = WNDSTYLE;							//	ウィンドウの色
-    ctx.fillRect(4, 84, 120, 30);                           //  矩形描画
+ctx.fillRect(4, 84, 120, 30);                           //  矩形描画
 
     ctx.font = FONT;									//	文字フォントを設定
     ctx.fillStyle = FONTSTYLE;						    //	文字色
