@@ -94,12 +94,15 @@ function WmPaint() {
 function DrawMain() {
     const ctx = gScreen.getContext("2d");				//	仮想画面の2D描画コンテキストを取得
 
+    let mx = Math.floor(gPlayerX / TILESIZE);
+    let my = Math.floor(gPlayerY / TILESIZE);
+
     for (let dy = -7; dy <= 7; dy++) {
         let y = dy + 7;
-        let py = (gPlayerY + dy + MAP_HEIGHT) % MAP_HEIGHT;
+        let py = (my + dy + MAP_HEIGHT) % MAP_HEIGHT;
         for (let dx = -8; dx <= 8; dx++) {
             let x = dx + 8;
-            let px = (gPlayerX + dx + MAP_WIDTH) % MAP_WIDTH;
+            let px = (mx + dx + MAP_WIDTH) % MAP_WIDTH;
             DrawTile(ctx,
                      x * TILESIZE - TILESIZE / 2, y * TILESIZE,
                      gMap[py * MAP_WIDTH + px]);
@@ -119,7 +122,7 @@ function DrawMain() {
 
     ctx.font = FONT;									//	文字フォントを設定
     ctx.fillStyle = FONTSTYLE;						//	文字色
-    ctx.fillText("x=" + gPlayerX + " y=" + gPlayerY + ' m=' + gMap[gPlayerY * MAP_WIDTH + gPlayerX], 25, 115);
+    ctx.fillText("x=" + gPlayerX + " y=" + gPlayerY + ' m=' + gMap[my * MAP_WIDTH + mx], 25, 115);
 }
 
 
@@ -178,10 +181,10 @@ window.addEventListener('keydown', (e) => {
     }
 
     //  マップループ処理
-    gPlayerX += MAP_WIDTH;
-    gPlayerX %= MAP_WIDTH;
-    gPlayerY += MAP_HEIGHT;
-    gPlayerY %= MAP_HEIGHT;
+    gPlayerX += (MAP_WIDTH * TILESIZE);
+    gPlayerX %= (MAP_WIDTH * TILESIZE);
+    gPlayerY += (MAP_HEIGHT * TILESIZE);
+    gPlayerY %= (MAP_HEIGHT * TILESIZE);
 });
 
 
