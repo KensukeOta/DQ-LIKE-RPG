@@ -96,8 +96,8 @@ function WmPaint() {
 function DrawMain() {
     const ctx = gScreen.getContext("2d");				//	仮想画面の2D描画コンテキストを取得
 
-    let mx = Math.floor(gPlayerX / TILESIZE);
-    let my = Math.floor(gPlayerY / TILESIZE);
+    let mx = Math.floor(gPlayerX / TILESIZE);           //  プレイヤーのタイル座標X
+    let my = Math.floor(gPlayerY / TILESIZE);           //  プレイヤーのタイル座標Y
 
     for (let dy = -7; dy <= 7; dy++) {
         let y = dy + 7;
@@ -108,7 +108,8 @@ function DrawMain() {
             let tx = mx + dx;                           //  タイル座標X
             let px = (tx + MAP_WIDTH) % MAP_WIDTH; //  ループ後タイル座標X
             DrawTile(ctx,
-                     x * TILESIZE - TILESIZE / 2, y * TILESIZE,
+                     (tx + 8) * TILESIZE - gPlayerX,
+                     (ty + 7) * TILESIZE - gPlayerY,
                      gMap[py * MAP_WIDTH + px]);
         }
     }
