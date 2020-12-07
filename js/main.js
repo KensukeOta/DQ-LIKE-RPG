@@ -9,19 +9,21 @@ const WIDTH = 128;					        //	仮想画面サイズ。幅
 const MAP_HEIGHT = 32;					    //	マップ高さ
 const MAP_WIDTH = 32;					    //	マップ幅
 const SMOOTH = 0;					        //	補間処理
+const START_X = 15;                         //  開始位置X
+const START_Y = 17;                         //  開始位置Y
 const TILECOLUMN = 4;					    //	タイル桁数
 const TILEROW = 4;					        //	タイル行数
 const TILESIZE = 8;					        //	タイルサイズ(ドット）
 const WNDSTYLE = "rgba( 0, 0, 0, 0.75 )";	//	ウィンドウの色
 
-let gFrame = 0;					//	内部カウンタ
-let gHeight;					//	実画面の高さ
-let gWidth;						//	実画面の幅
-let gImgMap;					//	画像。マップ
-let gImgPlayer;					//	画像。プレイヤー
-let gPlayerX = 10;				//	プレイヤー座標X
-let gPlayerY = 5;				//	プレイヤー座標Y
-let gScreen;					//	仮想画面
+let gFrame = 0;					            //	内部カウンタ
+let gHeight;					            //	実画面の高さ
+let gWidth;						            //	実画面の幅
+let gImgMap;					            //	画像。マップ
+let gImgPlayer;					            //	画像。プレイヤー
+let gPlayerX = START_X * TILESIZE;		    //	プレイヤー座標X
+let gPlayerY = START_Y * TILESIZE;		    //	プレイヤー座標Y
+let gScreen;					            //	仮想画面
 
 
 const gFileMap = "img/map.png";
