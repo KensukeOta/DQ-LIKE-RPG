@@ -18,6 +18,8 @@ const TILEROW = 4;					        //	タイル行数
 const TILESIZE = 8;					        //	タイルサイズ(ドット）
 const WNDSTYLE = "rgba( 0, 0, 0, 0.75 )";	//	ウィンドウの色
 
+const gKey = new Uint8Array(0x100);         //  キー入力バッファ
+
 let gFrame = 0;					            //	内部カウンタ
 let gHeight;					            //	実画面の高さ
 let gWidth;						            //	実画面の幅
@@ -170,26 +172,26 @@ function WmSize() {
 
 //	キー入力(DONW)イベント
 window.addEventListener('keydown', (e) => {
-    switch (e.code) {
-        case 'ArrowUp':
-            gPlayerY--;
-            break;
-        case 'ArrowRight':
-            gPlayerX++;
-            break;
-        case 'ArrowDown':
-            gPlayerY++;
-            break;
-        case 'ArrowLeft':
-            gPlayerX--;
-            break;
-    }
+
+    let c = e.keyCode;     //  キーコード取得
+    
+    gKey[c] = 1;
+    
+    if (gKey[37]) gPlayerX--;   //  左
+    if (gKey[38]) gPlayerY--;   //  上
+    if (gKey[39]) gPlayerX++;   //  右
+    if (gKey[40]) gPlayerY++;   //  下
 
     //  マップループ処理
     gPlayerX += (MAP_WIDTH * TILESIZE);
     gPlayerX %= (MAP_WIDTH * TILESIZE);
     gPlayerY += (MAP_HEIGHT * TILESIZE);
     gPlayerY %= (MAP_HEIGHT * TILESIZE);
+});
+
+//  キー入力(UP)イベント
+window.addEventListener('keyup', (e) => {
+    gKey[e.keyCode] = 0
 });
 
 
