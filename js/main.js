@@ -120,10 +120,6 @@ function DrawMain() {
         }
     }
 
-    ctx.fillStyle = "#ff0000";
-    ctx.fillRect(0, HEIGHT / 2 - 1, WIDTH, 2);
-    ctx.fillRect(WIDTH / 2 - 1, 0, 2, HEIGHT);
-
     //  プレイヤー
     ctx.drawImage(gImgPlayer,
         (gFrame >> 4 & 1) * CHRWIDTH, gAngle * CHRHEIGHT, CHRWIDTH, CHRHEIGHT,
@@ -158,6 +154,19 @@ function TickField() {
     else if (gKey[39]) { gAngle = 2; gMoveX = TILESIZE; }     //  右
     else if (gKey[40]) { gAngle = 0; gMoveY = TILESIZE; }     //  下
 
+    //  移動後のタイル座標判定
+    let mx = Math.floor((gPlayerX + gMoveX) / TILESIZE);    //  移動後のタイル座標X
+    let my = Math.floor((gPlayerY + gMoveY) / TILESIZE);    //  移動後のタイル座標Y
+    mx += MAP_WIDTH;                    //  マップループ処理X
+    mx %= MAP_WIDTH;                    //  マップループ処理X
+    my += MAP_HEIGHT;                   //  マップループ処理Y
+    my %= MAP_HEIGHT;                   //  マップループ処理Y
+    let m = gMap[my * MAP_WIDTH + mx]   //  タイル番号
+    if (m < 3) {
+        gMoveX = 0;                     //  移動禁止X
+        gMoveY = 0;                     //  移動禁止Y
+    }
+
     gPlayerX += Math.sign(gMoveX);      //  プレイヤー座標移動X
     gPlayerY += Math.sign(gMoveY);      //  プレイヤー座標移動Y
     gMoveX -= Math.sign(gMoveX);        //  移動量消費X
@@ -169,7 +178,6 @@ function TickField() {
     gPlayerY += (MAP_HEIGHT * TILESIZE);
     gPlayerY %= (MAP_HEIGHT * TILESIZE);
 }
-
 
 //	ブラウザサイズ変更イベント
 function WmSize() {
