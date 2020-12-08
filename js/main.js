@@ -26,7 +26,8 @@ let gAngle = 0;                             //  プレイヤーの向き
 let gFrame = 0;					            //	内部カウンタ
 let gHeight;					            //	実画面の高さ
 let gWidth;						            //	実画面の幅
-let gMessage = null;                        //  表示メッセージ
+let gMessage1 = null;                        //  表示メッセージ1
+let gMessage2 = null;                        //  表示メッセージ2
 let gMoveX = 0;                             //  移動量X
 let gMoveY = 0;                             //  移動量Y
 let gImgMap;					            //	画像。マップ
@@ -139,7 +140,7 @@ function DrawMain() {
 
 //  メッセージ描画
 function DrawMessage(ctx) {
-    if (!gMessage) {                                    //  メッセージが存在しない場合
+    if (!gMessage1) {                                    //  メッセージが存在しない場合
         return;
     }
     ctx.fillStyle = WNDSTYLE;							//	ウィンドウの色
@@ -149,7 +150,10 @@ ctx.fillRect(4, 84, 120, 30);                           //  矩形描画
     ctx.fillStyle = FONTSTYLE;						    //	文字色
 
 
-    ctx.fillText(gMessage, 6, 96);
+    ctx.fillText(gMessage1, 6, 96);                     //  メッセージ１行目描画
+    if (gMessage2) {
+        ctx.fillText(gMessage2, 6, 110);                     //  メッセージ２行目描画
+    }
 }
 
 function DrawTile(ctx, x, y, idx) {
@@ -186,11 +190,13 @@ function TickField() {
     }
 
     if (m === 8 || m === 9) {
-        gMessage = '魔王を倒して！';
+        gMessage1 = '魔王を倒して！';
+        gMessage2 = null;
     }
 
     if (m === 10 || m === 11) {
-        gMessage = '西の果てにも村があります';
+        gMessage1 = '西の果てにも';
+        gMessage2 = '村があります';
     }
 
     gPlayerX += Math.sign(gMoveX) * SCROLL;      //  プレイヤー座標移動X
@@ -234,7 +240,7 @@ window.addEventListener('keydown', (e) => {
     
     gKey[c] = 1;
 
-    gMessage = null;
+    gMessage1 = null;
 });
 
 //  キー入力(UP)イベント
