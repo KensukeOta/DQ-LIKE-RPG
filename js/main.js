@@ -13,6 +13,7 @@ const SCR_HEIGHT = 8;                       //  画面タイルサイズの半�
 const SCR_WIDTH = 8;                        //  画面タイルサイズの半分の幅
 const SCROLL = 1;                           //  スクロール速度
 const SMOOTH = 0;					        //	補間処理
+const START_HP = 20                         //  開始HP
 const START_X = 15;                         //  開始位置X
 const START_Y = 17;                         //  開始位置Y
 const TILECOLUMN = 4;					    //	タイル桁数
@@ -23,11 +24,15 @@ const WNDSTYLE = "rgba( 0, 0, 0, 0.75 )";	//	ウィンドウの色
 const gKey = new Uint8Array(0x100);         //  キー入力バッファ
 
 let gAngle = 0;                             //  プレイヤーの向き
+let gEx = 0;                                //  プレイヤーの経験値
+let gHP = START_HP;                         //  プレイヤーのHP
+let gMHP = START_HP;                        //  プレイヤーの最大HP
+let gLv = 1;                                //  プレイヤーのレベル
 let gFrame = 0;					            //	内部カウンタ
 let gHeight;					            //	実画面の高さ
 let gWidth;						            //	実画面の幅
-let gMessage1 = null;                        //  表示メッセージ1
-let gMessage2 = null;                        //  表示メッセージ2
+let gMessage1 = null;                       //  表示メッセージ1
+let gMessage2 = null;                       //  表示メッセージ2
 let gMoveX = 0;                             //  移動量X
 let gMoveY = 0;                             //  移動量Y
 let gImgMap;					            //	画像。マップ
@@ -129,14 +134,19 @@ function DrawMain() {
         (gFrame >> 4 & 1) * CHRWIDTH, gAngle * CHRHEIGHT, CHRWIDTH, CHRHEIGHT,
         WIDTH / 2 - CHRWIDTH / 2, HEIGHT / 2 - CHRHEIGHT + TILESIZE / 2, CHRWIDTH, CHRHEIGHT);
 
+    //  ステータスウィンドウ
+    ctx.fillStyle = WNDSTYLE;							//	ウィンドウの色
+    ctx.fillRect(2, 2, 44, 37);                       //  矩形描画
+    
+    DrawStatus(ctx)                                     //  ステータス描画
     DrawMessage(ctx);                                   //  メッセージ描画 
         
-    ctx.fillStyle = WNDSTYLE;							//	ウィンドウの色
-    ctx.fillRect(20, 3, 105, 15);                       //  矩形描画
+    // ctx.fillStyle = WNDSTYLE;							//	ウィンドウの色
+    // ctx.fillRect(20, 3, 105, 15);                       //  矩形描画
 
-    ctx.font = FONT;									//	文字フォントを設定
-    ctx.fillStyle = FONTSTYLE;						    //	文字色
-    ctx.fillText("x=" + gPlayerX + " y=" + gPlayerY + ' m=' + gMap[my * MAP_WIDTH + mx], 25, 15);
+    // ctx.font = FONT;									//	文字フォントを設定
+    // ctx.fillStyle = FONTSTYLE;						    //	文字色
+    // ctx.fillText("x=" + gPlayerX + " y=" + gPlayerY + ' m=' + gMap[my * MAP_WIDTH + mx], 25, 15);
 }
 
 //  メッセージ描画
@@ -144,17 +154,25 @@ function DrawMessage(ctx) {
     if (!gMessage1) {                                    //  メッセージが存在しない場合
         return;
     }
+
     ctx.fillStyle = WNDSTYLE;							//	ウィンドウの色
-ctx.fillRect(4, 84, 120, 30);                           //  矩形描画
+    ctx.fillRect(4, 84, 120, 30);                       //  矩形描画
 
     ctx.font = FONT;									//	文字フォントを設定
     ctx.fillStyle = FONTSTYLE;						    //	文字色
-
-
     ctx.fillText(gMessage1, 6, 96);                     //  メッセージ１行目描画
     if (gMessage2) {
         ctx.fillText(gMessage2, 6, 110);                //  メッセージ２行目描画
     }
+}
+
+//  ステータス描画
+function DrawStatus(ctx) {
+    ctx.font = FONT;									//	文字フォントを設定
+    ctx.fillStyle = FONTSTYLE;						    //	文字色
+    ctx.fillText("Lv " + gLv, 4, 13)                    //  Lv
+    ctx.fillText("HP " + gHP, 4, 25)                    //  HP
+    ctx.fillText("Ex " + gEx, 4, 37)                    //  Ex
 }
 
 function DrawTile(ctx, x, y, idx) {
