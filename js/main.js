@@ -194,12 +194,28 @@ function TickField() {
         gMoveY = 0;                     //  移動禁止Y
     }
 
-    if (m === 8 || m === 9) {
+    if (m === 8 || m === 9) {   //  お城
         SetMessage('魔王を倒して！', null);
     }
 
-    if (m === 10 || m === 11) {
+    if (m === 10 || m === 11) { //  街  
         SetMessage('西の果てにも', '村があります');
+    }
+
+    if (m === 12) {  //  村
+        SetMessage('カギは、', '洞窟にあります');
+    }
+
+    if (m === 13) {  //  洞窟
+        SetMessage('カギを手に入れた', null);
+    }
+
+    if (m === 14) {  //  扉
+        SetMessage('扉が開いた', null);
+    }
+
+    if (m === 15) {  //  ボス
+        SetMessage('魔王を倒し', '世界に平和が訪れた');
     }
 
     gPlayerX += Math.sign(gMoveX) * SCROLL;      //  プレイヤー座標移動X
