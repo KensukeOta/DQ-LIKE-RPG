@@ -175,7 +175,7 @@ function SetMessage(v1, v2) {
 
 //  フィールド進行処理
 function TickField() {
-    if (gMoveX != 0 || gMoveY != 0) { }  //  移動中の場合
+    if (gMoveX != 0 || gMoveY != 0 || gMessage1) { }  //  移動中の場合
     else if (gKey[37]) { gAngle = 1; gMoveX = -TILESIZE; }    //  左
     else if (gKey[38]) { gAngle = 3; gMoveY = -TILESIZE; }    //  上
     else if (gKey[39]) { gAngle = 2; gMoveX = TILESIZE; }     //  右
@@ -258,8 +258,11 @@ function WmSize() {
 
 //	キー入力(DONW)イベント
 window.addEventListener('keydown', (e) => {
-
     let c = e.keyCode;     //  キーコード取得
+
+    if (gKey[c] != 0) {     //  既に押下中の場合（キーリピート）
+        return;
+    }
     
     gKey[c] = 1;
 
