@@ -211,7 +211,9 @@ function TickField() {
     }
 
     if (m === 14) {  //  扉
-        SetMessage('扉が開いた', null);
+        gPlayerY -= TILESIZE;       //  １マス上へ移動
+        SetMessage('カギが必要です', null);
+        // SetMessage('扉が開いた', null);
     }
 
     if (m === 15) {  //  ボス
