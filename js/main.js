@@ -152,7 +152,7 @@ ctx.fillRect(4, 84, 120, 30);                           //  矩形描画
 
     ctx.fillText(gMessage1, 6, 96);                     //  メッセージ１行目描画
     if (gMessage2) {
-        ctx.fillText(gMessage2, 6, 110);                     //  メッセージ２行目描画
+        ctx.fillText(gMessage2, 6, 110);                //  メッセージ２行目描画
     }
 }
 
@@ -166,6 +166,11 @@ function DrawTile(ctx, x, y, idx) {
 function LoadImage() {
     gImgMap = new Image(); gImgMap.src = gFileMap;		//	マップ画像読み込み
     gImgPlayer = new Image(); gImgPlayer.src = gFilePlayer;	//	プレイヤー画像読み込み
+}
+
+function SetMessage(v1, v2) {
+    gMessage1 = v1;
+    gMessage2 = v2;
 }
 
 //  フィールド進行処理
@@ -190,13 +195,11 @@ function TickField() {
     }
 
     if (m === 8 || m === 9) {
-        gMessage1 = '魔王を倒して！';
-        gMessage2 = null;
+        SetMessage('魔王を倒して！', null);
     }
 
     if (m === 10 || m === 11) {
-        gMessage1 = '西の果てにも';
-        gMessage2 = '村があります';
+        SetMessage('西の果てにも', '村があります');
     }
 
     gPlayerX += Math.sign(gMoveX) * SCROLL;      //  プレイヤー座標移動X
