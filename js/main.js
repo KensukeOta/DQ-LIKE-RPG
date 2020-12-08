@@ -243,6 +243,10 @@ function TickField() {
         if (m === 15) {  //  ボス
             SetMessage('魔王を倒し', '世界に平和が訪れた');
         }
+
+        if (Math.random() * 4 < 1) {    //  ランダムエンカウント
+            SetMessage('敵が現れた！', null);
+        }
     }
 
     gPlayerX += Math.sign(gMoveX) * SCROLL;      //  プレイヤー座標移動X
