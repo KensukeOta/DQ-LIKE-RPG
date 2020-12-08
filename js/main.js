@@ -32,6 +32,7 @@ let gMoveX = 0;                             //  移動量X
 let gMoveY = 0;                             //  移動量Y
 let gImgMap;					            //	画像。マップ
 let gImgPlayer;					            //	画像。プレイヤー
+let gItem = 0;                              //  所持アイテム
 let gPlayerX = START_X * TILESIZE + TILESIZE / 2;		    //	プレイヤー座標X
 let gPlayerY = START_Y * TILESIZE + TILESIZE / 2;		    //	プレイヤー座標Y
 let gScreen;					            //	仮想画面
@@ -175,7 +176,7 @@ function SetMessage(v1, v2) {
 
 //  フィールド進行処理
 function TickField() {
-    if (gMoveX != 0 || gMoveY != 0 || gMessage1) { }  //  移動中の場合
+    if (gMoveX != 0 || gMoveY != 0 || gMessage1) { }  //  移動中またはメッセージ表示中の場合
     else if (gKey[37]) { gAngle = 1; gMoveX = -TILESIZE; }    //  左
     else if (gKey[38]) { gAngle = 3; gMoveY = -TILESIZE; }    //  上
     else if (gKey[39]) { gAngle = 2; gMoveX = TILESIZE; }     //  右
@@ -208,13 +209,17 @@ function TickField() {
         }
     
         if (m === 13) {  //  洞窟
+            gItem = 1;   //  カギ入手
             SetMessage('カギを手に入れた', null);
         }
     
         if (m === 14) {  //  扉
-            gPlayerY -= TILESIZE;       //  １マス上へ移動
-            SetMessage('カギが必要です', null);
-            // SetMessage('扉が開いた', null);
+            if (gItem === 0) {              //  カギを所持していない場合
+                gPlayerY -= TILESIZE;       //  １マス上へ移動
+                SetMessage('カギが必要です', null);
+            } else {
+                SetMessage('扉が開いた', null);   
+            }
         }
     
         if (m === 15) {  //  ボス
