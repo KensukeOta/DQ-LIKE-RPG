@@ -29,6 +29,7 @@ let gHP = START_HP;                         //  プレイヤーのHP
 let gMHP = START_HP;                        //  プレイヤーの最大HP
 let gLv = 1;                                //  プレイヤーのレベル
 let gCursor = 0;                            //  カーソル位置
+let gEnemyType;                             //  敵種別
 let gFrame = 0;					            //	内部カウンタ
 let gHeight;					            //	実画面の高さ
 let gWidth;						            //	実画面の幅
@@ -121,7 +122,10 @@ function DrawFight(ctx) {
     ctx.fillStyle = '#000000';                          //  背景色
     ctx.fillRect(0, 0, WIDTH, HEIGHT);                  //  画面全体を矩形描画
 
-    ctx.drawImage(gImgMonster, WIDTH / 2, HEIGHT / 2);
+    let w = gImgMonster.width / 4;
+    let h = gImgMonster.height;
+    
+    ctx.drawImage(gImgMonster, gEnemyType * w, 0, w, h, WIDTH / 2, HEIGHT / 2, w, h);
 
     DrawStatus(ctx)                                     //  ステータス描画
     DrawMessage(ctx);                                   //  メッセージ描画 
@@ -278,6 +282,7 @@ function TickField() {
 
         if (Math.random() * 4 < gEncounter[m]) {    //  ランダムエンカウント
             gPhase = 1;                             //  敵出現フェーズ
+            gEnemyType = 1;
             SetMessage('敵が現れた！', null);
         }
     }
