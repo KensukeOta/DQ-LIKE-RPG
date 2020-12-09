@@ -28,6 +28,7 @@ let gEx = 0;                                //  プレイヤーの経験値
 let gHP = START_HP;                         //  プレイヤーのHP
 let gMHP = START_HP;                        //  プレイヤーの最大HP
 let gLv = 1;                                //  プレイヤーのレベル
+let gCursor = 0;                            //  カーソル位置
 let gFrame = 0;					            //	内部カウンタ
 let gHeight;					            //	実画面の高さ
 let gWidth;						            //	実画面の幅
@@ -117,8 +118,8 @@ function WmPaint() {
 
 //  戦闘画面描画処理
 function DrawFight(ctx) {
-    ctx.fillStyle = '#000000';              //  背景色
-    ctx.fillRect(0, 0, WIDTH, HEIGHT);      //  画面全体を矩形描画
+    ctx.fillStyle = '#000000';                          //  背景色
+    ctx.fillRect(0, 0, WIDTH, HEIGHT);                  //  画面全体を矩形描画
 
     ctx.drawImage(gImgMonster, WIDTH / 2, HEIGHT / 2);
 
@@ -126,7 +127,7 @@ function DrawFight(ctx) {
     DrawMessage(ctx);                                   //  メッセージ描画 
 
     if (gPhase === 2) {                                 //  戦闘フェーズがコマンド選択中の場合
-        ctx.fillText('▶︎', 0.3, 96);
+        ctx.fillText('▶︎', 0.3, 96 + 14 * gCursor);          //  カーソル描画
     }
 }
 
@@ -329,7 +330,12 @@ window.addEventListener('keydown', (e) => {
     }
 
     if (gPhase === 2) {   //    戦闘コマンド選択中の場合
-        gPhase = 0;       //    マップ移動フェーズ
+        if (c === 13 || c === 90) {  //  Enterキー、またはZキーの場合
+            gPhase = 0;              
+        } else {
+            gCursor = 1 - gCursor;  //  カーソル移動
+        }
+        return;
     }
 
     gMessage1 = null;
