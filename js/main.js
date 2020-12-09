@@ -231,6 +231,9 @@ function SetMessage(v1, v2) {
 //  経験値加算
 function AddExp(val) {
     gEx += val;     //  経験値加算
+    while (gLv < gEx) {
+        gLv++       //  レベルアップ
+    }
 }
 
 //  フィールド進行処理
