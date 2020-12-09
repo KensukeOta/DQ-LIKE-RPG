@@ -38,6 +38,7 @@ let gMoveY = 0;                             //  移動量Y
 let gImgMap;					            //	画像。マップ
 let gImgPlayer;					            //	画像。プレイヤー
 let gItem = 0;                              //  所持アイテム
+let gPhase;                                 //  戦闘フェーズ
 let gPlayerX = START_X * TILESIZE + TILESIZE / 2;		    //	プレイヤー座標X
 let gPlayerY = START_Y * TILESIZE + TILESIZE / 2;		    //	プレイヤー座標Y
 let gScreen;					            //	仮想画面
@@ -247,6 +248,7 @@ function TickField() {
         }
 
         if (Math.random() * 4 < gEncounter[m]) {    //  ランダムエンカウント
+            gPhase = 1;                             //  敵出現フェーズ
             SetMessage('敵が現れた！', null);
         }
     }
