@@ -38,7 +38,7 @@ let gMoveY = 0;                             //  移動量Y
 let gImgMap;					            //	画像。マップ
 let gImgPlayer;					            //	画像。プレイヤー
 let gItem = 0;                              //  所持アイテム
-let gPhase;                                 //  戦闘フェーズ
+let gPhase = 0;                                 //  戦闘フェーズ
 let gPlayerX = START_X * TILESIZE + TILESIZE / 2;		    //	プレイヤー座標X
 let gPlayerY = START_Y * TILESIZE + TILESIZE / 2;		    //	プレイヤー座標Y
 let gScreen;					            //	仮想画面
@@ -113,6 +113,12 @@ function WmPaint() {
     ctx.drawImage(gScreen, 0, 0, gScreen.width, gScreen.height, 0, 0, gWidth, gHeight);	//	仮想画面のイメージを実画面へ転送
 }
 
+//  戦闘画面描画処理
+function DrawFight(ctx) {
+    ctx.fillStyle = '#000000';              //  背景色
+    ctx.fillRect(0, 0, WIDTH, HEIGHT);      //  画面全体を矩形描画
+}
+
 //  マップ描画処理
 function DrawMap(ctx) {
     let mx = Math.floor(gPlayerX / TILESIZE);           //  プレイヤーのタイル座標X
@@ -140,7 +146,11 @@ function DrawMap(ctx) {
 function DrawMain() {
     const ctx = gScreen.getContext("2d");				//	仮想画面の2D描画コンテキストを取得
 
-    DrawMap(ctx);                                       //  マップ描画
+    if (gPhase === 0) {
+        DrawMap(ctx);                                       //  マップ描画
+    } else {
+        DrawFight(ctx);
+    }
 
     //  ステータスウィンドウ
     ctx.fillStyle = WNDSTYLE;							//	ウィンドウの色
@@ -289,9 +299,6 @@ function WmSize() {
     }
 }
 
-
-
-
 //	キー入力(DONW)イベント
 window.addEventListener('keydown', (e) => {
     let c = e.keyCode;     //  キーコード取得
@@ -301,6 +308,10 @@ window.addEventListener('keydown', (e) => {
     }
     
     gKey[c] = 1;
+
+    if (gPhase === 1) {
+        gPhase = 0;
+    }
 
     gMessage1 = null;
 });
