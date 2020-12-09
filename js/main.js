@@ -113,9 +113,8 @@ function WmPaint() {
     ctx.drawImage(gScreen, 0, 0, gScreen.width, gScreen.height, 0, 0, gWidth, gHeight);	//	仮想画面のイメージを実画面へ転送
 }
 
-function DrawMain() {
-    const ctx = gScreen.getContext("2d");				//	仮想画面の2D描画コンテキストを取得
-
+//  マップ描画処理
+function DrawMap(ctx) {
     let mx = Math.floor(gPlayerX / TILESIZE);           //  プレイヤーのタイル座標X
     let my = Math.floor(gPlayerY / TILESIZE);           //  プレイヤーのタイル座標Y
 
@@ -126,9 +125,9 @@ function DrawMain() {
             let tx = mx + dx;                           //  タイル座標X
             let px = (tx + MAP_WIDTH) % MAP_WIDTH; //  ループ後タイル座標X
             DrawTile(ctx,
-                     tx * TILESIZE + WIDTH / 2 - gPlayerX,
-                     ty * TILESIZE + HEIGHT / 2 - gPlayerY,
-                     gMap[py * MAP_WIDTH + px]);
+                tx * TILESIZE + WIDTH / 2 - gPlayerX,
+                ty * TILESIZE + HEIGHT / 2 - gPlayerY,
+                gMap[py * MAP_WIDTH + px]);
         }
     }
 
@@ -136,6 +135,12 @@ function DrawMain() {
     ctx.drawImage(gImgPlayer,
         (gFrame >> 4 & 1) * CHRWIDTH, gAngle * CHRHEIGHT, CHRWIDTH, CHRHEIGHT,
         WIDTH / 2 - CHRWIDTH / 2, HEIGHT / 2 - CHRHEIGHT + TILESIZE / 2, CHRWIDTH, CHRHEIGHT);
+}
+
+function DrawMain() {
+    const ctx = gScreen.getContext("2d");				//	仮想画面の2D描画コンテキストを取得
+
+    DrawMap(ctx);                                       //  マップ描画
 
     //  ステータスウィンドウ
     ctx.fillStyle = WNDSTYLE;							//	ウィンドウの色
