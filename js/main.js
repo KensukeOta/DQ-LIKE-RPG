@@ -314,8 +314,14 @@ window.addEventListener('keydown', (e) => {
     
     gKey[c] = 1;
 
-    if (gPhase === 1) {
-        gPhase = 0;
+    if (gPhase === 1) {    //   敵が現れた場合
+        gPhase = 2         //   戦闘コマンド選択フェーズ
+        SetMessage('　戦う', '　逃げる');
+        return;
+    }
+
+    if (gPhase === 2) {   //    戦闘コマンド選択中の場合
+        gPhase = 0;       //    マップ移動フェーズ
     }
 
     gMessage1 = null;
