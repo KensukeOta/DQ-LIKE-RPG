@@ -331,11 +331,16 @@ window.addEventListener('keydown', (e) => {
 
     if (gPhase === 2) {   //    戦闘コマンド選択中の場合
         if (c === 13 || c === 90) {  //  Enterキー、またはZキーの場合
-            gPhase = 0;              
+            SetMessage('敵をやっつけた！', null);
+            gPhase = 3;              
         } else {
             gCursor = 1 - gCursor;  //  カーソル移動
         }
         return;
+    }
+
+    if (gPhase === 3) {
+        gPhase = 0;                 //  マップ移動フェーズ
     }
 
     gMessage1 = null;
