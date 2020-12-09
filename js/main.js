@@ -125,7 +125,7 @@ function DrawFight(ctx) {
     let w = gImgMonster.width / 4;
     let h = gImgMonster.height;
     
-    ctx.drawImage(gImgMonster, gEnemyType * w, 0, w, h, WIDTH / 2, HEIGHT / 2, w, h);
+    ctx.drawImage(gImgMonster, gEnemyType * w, 0, w, h, Math.floor(WIDTH / 2 - w / 2), Math.floor(HEIGHT / 2 - h / 2), w, h);
 
     DrawStatus(ctx)                                     //  ステータス描画
     DrawMessage(ctx);                                   //  メッセージ描画 
