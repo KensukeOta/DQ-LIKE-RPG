@@ -121,10 +121,17 @@ function DrawFight(ctx) {
     ctx.fillRect(0, 0, WIDTH, HEIGHT);      //  画面全体を矩形描画
 
     ctx.drawImage(gImgMonster, WIDTH / 2, HEIGHT / 2);
+
+    DrawStatus(ctx)                                     //  ステータス描画
+    DrawMessage(ctx);                                   //  メッセージ描画 
+
+    if (gPhase === 2) {                                 //  戦闘フェーズがコマンド選択中の場合
+        ctx.fillText('▶︎', 0.3, 96);
+    }
 }
 
-//  マップ描画処理
-function DrawMap(ctx) {
+//  フィールド描画処理
+function DrawField(ctx) {
     let mx = Math.floor(gPlayerX / TILESIZE);           //  プレイヤーのタイル座標X
     let my = Math.floor(gPlayerY / TILESIZE);           //  プレイヤーのタイル座標Y
 
@@ -145,23 +152,24 @@ function DrawMap(ctx) {
     ctx.drawImage(gImgPlayer,
         (gFrame >> 4 & 1) * CHRWIDTH, gAngle * CHRHEIGHT, CHRWIDTH, CHRHEIGHT,
         WIDTH / 2 - CHRWIDTH / 2, HEIGHT / 2 - CHRHEIGHT + TILESIZE / 2, CHRWIDTH, CHRHEIGHT);
+
+    //  ステータスウィンドウ
+    ctx.fillStyle = WNDSTYLE;							//	ウィンドウの色
+    ctx.fillRect(2, 2, 44, 37);                       //  矩形描画
+
+    DrawStatus(ctx)                                     //  ステータス描画
+    DrawMessage(ctx);                                   //  メッセージ描画 
+
 }
 
 function DrawMain() {
     const ctx = gScreen.getContext("2d");				//	仮想画面の2D描画コンテキストを取得
 
     if (gPhase === 0) {
-        DrawMap(ctx);                                       //  マップ描画
+        DrawField(ctx);                                       //  マップ描画
     } else {
         DrawFight(ctx);
     }
-
-    //  ステータスウィンドウ
-    ctx.fillStyle = WNDSTYLE;							//	ウィンドウの色
-    ctx.fillRect(2, 2, 44, 37);                       //  矩形描画
-    
-    DrawStatus(ctx)                                     //  ステータス描画
-    DrawMessage(ctx);                                   //  メッセージ描画 
         
     // ctx.fillStyle = WNDSTYLE;							//	ウィンドウの色
     // ctx.fillRect(20, 3, 105, 15);                       //  矩形描画
