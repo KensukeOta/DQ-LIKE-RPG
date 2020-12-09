@@ -36,6 +36,7 @@ let gMessage2 = null;                       //  表示メッセージ2
 let gMoveX = 0;                             //  移動量X
 let gMoveY = 0;                             //  移動量Y
 let gImgMap;					            //	画像。マップ
+let gImgMonster;					        //	画像。モンスター
 let gImgPlayer;					            //	画像。プレイヤー
 let gItem = 0;                              //  所持アイテム
 let gPhase = 0;                                 //  戦闘フェーズ
@@ -45,6 +46,7 @@ let gScreen;					            //	仮想画面
 
 
 const gFileMap = "img/map.png";
+const gFileMonster = "img/monster.png";
 const gFilePlayer = "img/player.png";
 
 const gEncounter = [0, 0, 0, 1, 0, 0, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0];    //  敵エンカウント確率
@@ -117,6 +119,8 @@ function WmPaint() {
 function DrawFight(ctx) {
     ctx.fillStyle = '#000000';              //  背景色
     ctx.fillRect(0, 0, WIDTH, HEIGHT);      //  画面全体を矩形描画
+
+    ctx.drawImage(gImgMonster, WIDTH / 2, HEIGHT / 2);
 }
 
 //  マップ描画処理
@@ -201,8 +205,9 @@ function DrawTile(ctx, x, y, idx) {
 
 
 function LoadImage() {
-    gImgMap = new Image(); gImgMap.src = gFileMap;		//	マップ画像読み込み
-    gImgPlayer = new Image(); gImgPlayer.src = gFilePlayer;	//	プレイヤー画像読み込み
+    gImgMap = new Image(); gImgMap.src = gFileMap;		            //	マップ画像読み込み
+    gImgMonster = new Image(); gImgMonster.src = gFileMonster;		//	モンスター画像読み込み
+    gImgPlayer = new Image(); gImgPlayer.src = gFilePlayer;	        //	プレイヤー画像読み込み
 }
 
 function SetMessage(v1, v2) {
