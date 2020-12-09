@@ -228,6 +228,11 @@ function SetMessage(v1, v2) {
     gMessage2 = v2;
 }
 
+//  経験値加算
+function AddExp(val) {
+    gEx += val;     //  経験値加算
+}
+
 //  フィールド進行処理
 function TickField() {
     if (gMoveX != 0 || gMoveY != 0 || gMessage1) { }  //  移動中またはメッセージ表示中の場合
@@ -346,6 +351,7 @@ window.addEventListener('keydown', (e) => {
 
     if (gPhase === 3) {
         gPhase = 0;                 //  マップ移動フェーズ
+        AddExp(gEnemyType + 1);     //  経験値加算
     }
 
     gMessage1 = null;
