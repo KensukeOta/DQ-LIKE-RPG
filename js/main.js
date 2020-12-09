@@ -46,6 +46,8 @@ let gScreen;					            //	仮想画面
 const gFileMap = "img/map.png";
 const gFilePlayer = "img/player.png";
 
+const gEncounter = [0, 0, 0, 1, 0, 0, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0];    //  敵エンカウント確率
+
 //	マップ
 const gMap = [
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -244,7 +246,7 @@ function TickField() {
             SetMessage('魔王を倒し', '世界に平和が訪れた');
         }
 
-        if (Math.random() * 4 < 1) {    //  ランダムエンカウント
+        if (Math.random() * 4 < gEncounter[m]) {    //  ランダムエンカウント
             SetMessage('敵が現れた！', null);
         }
     }
