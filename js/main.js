@@ -231,7 +231,7 @@ function SetMessage(v1, v2) {
 //  経験値加算
 function AddExp(val) {
     gEx += val;                                     //  経験値加算
-    while (gLv < gEx) {
+    while (gLv * (gLv + 1) * 2 <= gEx) {            //  レベルアップ条件を満たしている場合
         gLv++                                       //  レベルアップ
         gMHP += 4 + Math.floor(Math.random() * 3);  //  最大HP上昇4〜6
     }
