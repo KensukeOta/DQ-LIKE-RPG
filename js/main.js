@@ -228,6 +228,18 @@ function SetMessage(v1, v2) {
     gMessage2 = v2;
 }
 
+//  戦闘行動処理
+function Action() {
+    gPhase++;                                       //  フェーズ経過
+
+    if (gCursor === 0) {                            //  「戦う」選択時
+        SetMessage('敵をやっつけた！', null);
+        return;
+    }
+
+    SetMessage('あなたは逃げ出した', null);
+}
+
 //  経験値加算
 function AddExp(val) {
     gEx += val;                                     //  経験値加算
@@ -348,8 +360,7 @@ window.addEventListener('keydown', (e) => {
 
     if (gPhase === 2) {   //    戦闘コマンド選択中の場合
         if (c === 13 || c === 90) {  //  Enterキー、またはZキーの場合
-            SetMessage('敵をやっつけた！', null);
-            gPhase = 3;              
+            Action();                //  戦闘行動処理              
         } else {
             gCursor = 1 - gCursor;  //  カーソル移動
         }
