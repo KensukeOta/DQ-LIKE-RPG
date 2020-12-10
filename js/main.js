@@ -256,6 +256,12 @@ function AddExp(val) {
     }
 }
 
+//  戦闘コマンド
+function CommandFight() {
+    gPhase = 2         //   戦闘コマンド選択フェーズ
+    SetMessage('　戦う', '　逃げる');
+}
+
 //  フィールド進行処理
 function TickField() {
     if (gMoveX != 0 || gMoveY != 0 || gMessage1) { }  //  移動中またはメッセージ表示中の場合
@@ -360,8 +366,7 @@ window.addEventListener('keydown', (e) => {
     gKey[c] = 1;
 
     if (gPhase === 1) {    //   敵が現れた場合
-        gPhase = 2         //   戦闘コマンド選択フェーズ
-        SetMessage('　戦う', '　逃げる');
+        CommandFight();    //   戦闘コマンド
         return;
     }
 
@@ -378,7 +383,13 @@ window.addEventListener('keydown', (e) => {
         Action();                   //  戦闘行動処理
         return;
     }
+
     if (gPhase === 4) {
+        CommandFight();    //   戦闘コマンド
+        return; 
+    }
+    
+    if (gPhase === 5) {
         gPhase = 0;                 //  マップ移動フェーズ
         gHP -= 5;
         AddExp(gEnemyType + 1);     //  経験値加算
