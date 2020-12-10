@@ -236,6 +236,7 @@ function Action() {
 
     if (gPhase === 3) {
         SetMessage(gMonsterName[gEnemyType] + 'の攻撃！', 999 + 'のダメージ！');
+        gPhase = 7;
         return;
     }
 
@@ -408,6 +409,17 @@ window.addEventListener('keydown', (e) => {
     
     if (gPhase === 6) {
         gPhase = 0;                 //  マップ移動フェーズ
+    }
+
+    if (gPhase === 7) {
+        gPhase = 8;
+        SetMessage('あなたは死亡した', null);
+        return;
+    }
+
+    if (gPhase === 8) {
+        SetMessage('ゲームオーバー', null);
+        return;
     }
 
     gMessage1 = null;
