@@ -241,6 +241,7 @@ function Action() {
 
     if (gCursor === 0) {                            //  「戦う」選択時
         SetMessage('あなたの攻撃！', 333 + ' のダメージ！');
+        gPhase = 5;
         return;
     }
 
@@ -388,11 +389,16 @@ window.addEventListener('keydown', (e) => {
         CommandFight();    //   戦闘コマンド
         return; 
     }
-    
+
     if (gPhase === 5) {
-        gPhase = 0;                 //  マップ移動フェーズ
-        gHP -= 5;
+        gPhase = 6;
         AddExp(gEnemyType + 1);     //  経験値加算
+        SetMessage('敵をやっつけた！', null);
+        return;
+    }
+    
+    if (gPhase === 6) {
+        gPhase = 0;                 //  マップ移動フェーズ
     }
 
     gMessage1 = null;
