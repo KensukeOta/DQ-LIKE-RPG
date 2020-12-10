@@ -232,8 +232,13 @@ function SetMessage(v1, v2) {
 function Action() {
     gPhase++;                                       //  フェーズ経過
 
+    if (gPhase === 3) {
+        SetMessage('敵の攻撃！', 999 + 'のダメージ！');
+        return;
+    }
+
     if (gCursor === 0) {                            //  「戦う」選択時
-        SetMessage('敵をやっつけた！', null);
+        SetMessage('あなたの攻撃！', 333 + ' のダメージ！');
         return;
     }
 
@@ -368,6 +373,10 @@ window.addEventListener('keydown', (e) => {
     }
 
     if (gPhase === 3) {
+        Action();                   //  戦闘行動処理
+        return;
+    }
+    if (gPhase === 4) {
         gPhase = 0;                 //  マップ移動フェーズ
         gHP -= 5;
         AddExp(gEnemyType + 1);     //  経験値加算
