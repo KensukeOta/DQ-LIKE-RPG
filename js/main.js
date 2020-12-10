@@ -245,8 +245,15 @@ function Action() {
         return;
     }
 
-    SetMessage('あなたは逃げ出した', null);
-    gPhase = 6;
+    if (Math.random() < 0.5) {                       //  「逃げる」成功時
+        SetMessage('あなたは逃げ出した', null);
+        gPhase = 6;
+        return;
+    }
+
+    //  「逃げる」失敗時
+    SetMessage('あなたは逃げ出した', 'しかし回り込まれた！');
+
 }
 
 //  経験値加算
