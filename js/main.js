@@ -53,6 +53,8 @@ const gFilePlayer = "img/player.png";
 
 const gEncounter = [0, 0, 0, 1, 0, 0, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0];    //  敵エンカウント確率
 
+const gMonsterName = ['スライム', 'うさぎ', 'ナイト', 'ドラゴン', '魔王'];  //  モンスター名称
+
 //	マップ
 const gMap = [
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -233,7 +235,7 @@ function Action() {
     gPhase++;                                       //  フェーズ経過
 
     if (gPhase === 3) {
-        SetMessage('敵の攻撃！', 999 + 'のダメージ！');
+        SetMessage(gMonsterName[gEnemyType] + 'の攻撃！', 999 + 'のダメージ！');
         return;
     }
 
