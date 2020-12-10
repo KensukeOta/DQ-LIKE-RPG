@@ -172,7 +172,7 @@ function DrawField(ctx) {
 function DrawMain() {
     const ctx = gScreen.getContext("2d");				//	仮想画面の2D描画コンテキストを取得
 
-    if (gPhase === 0) {
+    if (gPhase <= 1) {
         DrawField(ctx);                                       //  マップ描画
     } else {
         DrawFight(ctx);
