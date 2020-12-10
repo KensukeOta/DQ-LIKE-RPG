@@ -261,6 +261,7 @@ function AddExp(val) {
 //  戦闘コマンド
 function CommandFight() {
     gPhase = 2         //   戦闘コマンド選択フェーズ
+    gCursor = 0;
     SetMessage('　戦う', '　逃げる');
 }
 
