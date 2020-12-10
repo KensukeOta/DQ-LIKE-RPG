@@ -246,6 +246,7 @@ function Action() {
     }
 
     SetMessage('あなたは逃げ出した', null);
+    gPhase = 6;
 }
 
 //  経験値加算
