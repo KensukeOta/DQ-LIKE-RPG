@@ -219,9 +219,15 @@ function DrawMessage(ctx) {
 function DrawStatus(ctx) {
     ctx.font = FONT;									//	文字フォントを設定
     ctx.fillStyle = FONTSTYLE;						    //	文字色
-    ctx.fillText("Lv " + gLv, 4, 13)                    //  Lv
-    ctx.fillText("HP " + gHP, 4, 25)                    //  HP
-    ctx.fillText("Ex " + gEx, 4, 37)                    //  Ex
+    ctx.fillText("Lv ", 4, 13);  DrawTextR(ctx, gLv, 36, 13);       //  Lv
+    ctx.fillText("HP ", 4, 25);  DrawTextR(ctx, gHP, 36, 25);       //  HP
+    ctx.fillText("Ex ", 4, 37);  DrawTextR(ctx, gEx, 36, 37);       //  Ex
+}
+
+function DrawTextR(ctx, str, x, y) {
+    ctx.textAlign = 'right';
+    ctx.fillText(str, x, y);
+    ctx.textAlign = 'left';
 }
 
 function DrawTile(ctx, x, y, idx) {
