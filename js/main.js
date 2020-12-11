@@ -43,6 +43,7 @@ let gImgMap;					            //	画像。マップ
 let gImgMonster;					        //	画像。モンスター
 let gImgPlayer;					            //	画像。プレイヤー
 let gItem = 0;                              //  所持アイテム
+let gOrder;                                 //  行動順
 let gPhase = 0;                                 //  戦闘フェーズ
 let gPlayerX = START_X * TILESIZE + TILESIZE / 2;		    //	プレイヤー座標X
 let gPlayerY = START_Y * TILESIZE + TILESIZE / 2;		    //	プレイヤー座標Y
@@ -252,7 +253,7 @@ function SetMessage(v1, v2) {
 function Action() {
     gPhase++;                                       //  フェーズ経過
 
-    if (gPhase === 3) {
+    if ( ( (gPhase + gOrder) & 1) === 0) {          //  敵の行動順の場合
         const d = GetDamage(gEnemyType + 2);
         SetMessage(gMonsterName[gEnemyType] + 'の攻撃！', d + 'のダメージ！');
         gHP -= d;                                  //   プレイヤーのHP減少
@@ -262,6 +263,7 @@ function Action() {
         return;
     }
 
+    //  プレイヤーの行動順
     if (gCursor === 0) {                            //  「戦う」選択時
         const d = GetDamage(gLv + 1);               //  ダメージ計算結果取得
         SetMessage('あなたの攻撃！', d + ' のダメージ！');
@@ -425,6 +427,7 @@ window.addEventListener('keydown', (e) => {
 
     if (gPhase === 2) {   //    戦闘コマンド選択中の場合
         if (c === 13 || c === 90) {  //  Enterキー、またはZキーの場合
+            gOrder = Math.floor(Math.random() * 2);  //  戦闘行動順
             Action();                //  戦闘行動処理              
         } else {
             gCursor = 1 - gCursor;  //  カーソル移動
