@@ -126,13 +126,15 @@ function DrawFight(ctx) {
     ctx.fillStyle = '#000000';                          //  背景色
     ctx.fillRect(0, 0, WIDTH, HEIGHT);                  //  画面全体を矩形描画
 
-    if (isBoss()) {  //  ラスボスの場合
-        ctx.drawImage(gImgBoss, WIDTH / 2 - gImgBoss.width / 2, HEIGHT / 2 - gImgBoss.height / 2);
-    } else {
-        let w = gImgMonster.width / 4;
-        let h = gImgMonster.height;
-        
-        ctx.drawImage(gImgMonster, gEnemyType * w, 0, w, h, Math.floor(WIDTH / 2 - w / 2), Math.floor(HEIGHT / 2 - h / 2), w, h);
+    if (gPhase <= 5) {   //  敵が生存している場合
+        if (isBoss()) {  //  ラスボスの場合
+            ctx.drawImage(gImgBoss, WIDTH / 2 - gImgBoss.width / 2, HEIGHT / 2 - gImgBoss.height / 2);
+        } else {
+            let w = gImgMonster.width / 4;
+            let h = gImgMonster.height;
+            
+            ctx.drawImage(gImgMonster, gEnemyType * w, 0, w, h, Math.floor(WIDTH / 2 - w / 2), Math.floor(HEIGHT / 2 - h / 2), w, h);
+        }
     }
 
     DrawStatus(ctx)                                     //  ステータス描画
