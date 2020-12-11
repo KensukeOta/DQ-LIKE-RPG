@@ -377,7 +377,7 @@ function TickField() {
             AppearEnemy(gMonsterName.length - 1);
         }
 
-        if (Math.random() * 8 < gEncounter[m]) {    //  ランダムエンカウント
+        if (Math.random() * 16 < gEncounter[m]) {    //  ランダムエンカウント
             let type = Math.abs(gPlayerX / TILESIZE - START_X) + Math.abs(gPlayerY / TILESIZE - START_Y);
             if (m === 6) {      //  マップタイルが林だった場合
                 type += 8;                      //  敵レベルを0.5上昇
