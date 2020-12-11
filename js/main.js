@@ -110,8 +110,10 @@ window.addEventListener('load', () => {
 
 //	タイマーイベント発生時の処理
 function WmTimer() {
-    gFrame++;						//	内部カウンタを加算
-    TickField();                    //  フィールド進行処理
+    if (!gMessage1) {
+        gFrame++;						//	内部カウンタを加算
+        TickField();                    //  フィールド進行処理
+    }
     WmPaint();
 }
 
@@ -311,6 +313,10 @@ function CommandFight() {
 
 //  フィールド進行処理
 function TickField() {
+    if (gPhase != 0) {
+        return;
+    }
+    
     if (gMoveX != 0 || gMoveY != 0 || gMessage1) { }  //  移動中またはメッセージ表示中の場合
     else if (gKey[37]) { gAngle = 1; gMoveX = -TILESIZE; }    //  左
     else if (gKey[38]) { gAngle = 3; gMoveY = -TILESIZE; }    //  上
