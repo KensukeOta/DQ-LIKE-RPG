@@ -345,18 +345,18 @@ function TickField() {
 
     if (Math.abs(gMoveX) + Math.abs(gMoveY) === SCROLL) {   //  マス目移動が終わる直前
         if (m === 8 || m === 9) {   //  お城
-            gHP = gMHP;                                     //  HP全回復
-            SetMessage('魔王を倒して！', null);
+            gHP = gMHP;
+            SetMessage('「魔王を倒して！」', '体力が全回復した！');
         }
     
         if (m === 10 || m === 11) { //  街  
             gHP = gMHP;                                     //  HP全回復
-            SetMessage('西の果てにも', '村があります');
+            SetMessage('「東の果てにも村があります」', '体力が全回復した！');
         }
     
         if (m === 12) {  //  村
             gHP = gMHP;                                     //  HP全回復
-            SetMessage('カギは、', '洞窟にあります');
+            SetMessage('「カギは洞窟にあります」', '体力が全回復した！');
         }
     
         if (m === 13) {  //  洞窟
