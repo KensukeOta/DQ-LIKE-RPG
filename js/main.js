@@ -347,9 +347,16 @@ function TickField() {
             AppearEnemy(gMonsterName.length - 1);
         }
 
-        if (Math.random() * 4 < gEncounter[m]) {    //  ランダムエンカウント
+        if (Math.random() * 8 < gEncounter[m]) {    //  ランダムエンカウント
             let type = Math.abs(gPlayerX / TILESIZE - START_X) + Math.abs(gPlayerY / TILESIZE - START_Y);
-            type = Math.floor(type);
+            if (m === 6) {      //  マップタイルが林だった場合
+                type += 8;                      //  敵レベルを0.5上昇
+            }
+            if (m === 7) {      //  マップタイルが山だった場合
+                type += 16;                    //   敵レベルを1上昇
+            }
+            type += Math.random() * 8;         //   敵レベルを0〜0.5上昇
+            type = Math.floor(type / 16);
             type = Math.min(type, gMonsterName.length - 2);  //  上限処理
             AppearEnemy(type);
         }
