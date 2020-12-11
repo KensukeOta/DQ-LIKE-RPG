@@ -262,7 +262,8 @@ function Action() {
     }
 
     if (gCursor === 0) {                            //  「戦う」選択時
-        SetMessage('あなたの攻撃！', 333 + ' のダメージ！');
+        const d = GetDamage(gLv + 1);               //  ダメージ計算結果取得
+        SetMessage('あなたの攻撃！', d + ' のダメージ！');
         return;
     }
 
