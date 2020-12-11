@@ -29,6 +29,7 @@ let gHP = START_HP;                         //  プレイヤーのHP
 let gMHP = START_HP;                        //  プレイヤーの最大HP
 let gLv = 1;                                //  プレイヤーのレベル
 let gCursor = 0;                            //  カーソル位置
+let gEnemyHP;                               //  敵HP
 let gEnemyType;                             //  敵種別
 let gFrame = 0;					            //	内部カウンタ
 let gHeight;					            //	実画面の高さ
@@ -264,6 +265,10 @@ function Action() {
     if (gCursor === 0) {                            //  「戦う」選択時
         const d = GetDamage(gLv + 1);               //  ダメージ計算結果取得
         SetMessage('あなたの攻撃！', d + ' のダメージ！');
+        gEnemyHP -= d;
+        if (gEnemyHP <= 0) {
+            gPhase = 5;
+        }
         return;
     }
 
@@ -290,6 +295,7 @@ function AddExp(val) {
 //  敵出現処理
 function AppearEnemy(type) {
     gPhase = 1;                             //  敵出現フェーズ
+    gEnemyHP = type * 3 + 5;                //  敵HP
     gEnemyType = type;
     SetMessage('敵が現れた！', null);
 }
