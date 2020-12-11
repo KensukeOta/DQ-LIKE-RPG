@@ -105,7 +105,7 @@ window.addEventListener('load', () => {
     
     WmSize();										//	画面サイズ初期化
     window.addEventListener("resize", function () { WmSize() });	//	ブラウザサイズ変更時、WmSize()が呼ばれるよう指示
-    setInterval(function () { WmTimer() }, INTERVAL);		//	33ms間隔で、WmTimer()を呼び出すよう指示（約30.3fps）
+    WmTimer()		
 });
 
 //	タイマーイベント発生時の処理
@@ -115,6 +115,7 @@ function WmTimer() {
         TickField();                    //  フィールド進行処理
     }
     WmPaint();
+    requestAnimationFrame(WmTimer);
 }
 
 function WmPaint() {
