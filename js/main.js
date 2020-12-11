@@ -226,6 +226,11 @@ function DrawTile(ctx, x, y, idx) {
     ctx.drawImage(gImgMap, ix, iy, TILESIZE, TILESIZE, x, y, TILESIZE, TILESIZE);
 }
 
+//  ダメージ量算出
+function GetDamage(a) {
+    return Math.floor(a * (1 + Math.random()) )     //  攻撃力の１〜２倍
+}
+
 function isBoss() {
     return gEnemyType === gMonsterName.length - 1;
 }
@@ -247,14 +252,17 @@ function Action() {
     gPhase++;                                       //  フェーズ経過
 
     if (gPhase === 3) {
-        SetMessage(gMonsterName[gEnemyType] + 'の攻撃！', 999 + 'のダメージ！');
-        // gPhase = 7;
+        const d = GetDamage(gEnemyType + 2);
+        SetMessage(gMonsterName[gEnemyType] + 'の攻撃！', d + 'のダメージ！');
+        gHP -= d;                                  //   プレイヤーのHP減少
+        if (gHP <= 0) {
+            gPhase = 7;                           //    死亡フェーズ
+        }
         return;
     }
 
     if (gCursor === 0) {                            //  「戦う」選択時
         SetMessage('あなたの攻撃！', 333 + ' のダメージ！');
-        gPhase = 5;
         return;
     }
 
