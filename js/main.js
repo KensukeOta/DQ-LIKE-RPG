@@ -348,7 +348,10 @@ function TickField() {
         }
 
         if (Math.random() * 4 < gEncounter[m]) {    //  ランダムエンカウント
-            AppearEnemy(0);
+            let type = Math.abs(gPlayerX / TILESIZE - START_X) + Math.abs(gPlayerY / TILESIZE - START_Y);
+            type = Math.floor(type);
+            type = Math.min(type, gMonsterName.length - 2);  //  上限処理
+            AppearEnemy(type);
         }
     }
 
